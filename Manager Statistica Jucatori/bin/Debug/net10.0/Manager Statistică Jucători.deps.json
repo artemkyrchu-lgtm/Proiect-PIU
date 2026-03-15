@@ -7,14 +7,47 @@
   "targets": {
     ".NETCoreApp,Version=v10.0": {
       "Manager Statistică Jucători/1.0.0": {
+        "dependencies": {
+          "GestionareaJucatorului": "1.0.0",
+          "Jucator": "1.0.0"
+        },
         "runtime": {
           "Manager Statistică Jucători.dll": {}
+        }
+      },
+      "GestionareaJucatorului/1.0.0": {
+        "dependencies": {
+          "Jucator": "1.0.0"
+        },
+        "runtime": {
+          "GestionareaJucatorului.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Jucator/1.0.0": {
+        "runtime": {
+          "Jucator.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
     "Manager Statistică Jucători/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GestionareaJucatorului/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Jucator/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

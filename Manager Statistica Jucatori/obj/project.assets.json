@@ -52,11 +52,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PIU\\Manager Statistica Jucatori\\Manager Statistică Jucători.csproj",
+      "projectUniqueName": "D:\\PIU - Proiect\\Manager Statistica Jucatori\\Manager Statistică Jucători.csproj",
       "projectName": "Manager Statistică Jucători",
-      "projectPath": "D:\\PIU\\Manager Statistica Jucatori\\Manager Statistică Jucători.csproj",
+      "projectPath": "D:\\PIU - Proiect\\Manager Statistica Jucatori\\Manager Statistică Jucători.csproj",
       "packagesPath": "C:\\Users\\cc170\\.nuget\\packages\\",
-      "outputPath": "D:\\PIU\\Manager Statistica Jucatori\\obj\\",
+      "outputPath": "D:\\PIU - Proiect\\Manager Statistica Jucatori\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -77,11 +77,11 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "D:\\PIU\\GestionareaJucatorului\\GestionareaJucatorului.csproj": {
-              "projectPath": "D:\\PIU\\GestionareaJucatorului\\GestionareaJucatorului.csproj"
+            "D:\\PIU - Proiect\\GestionareaJucatorului\\GestionareaJucatorului.csproj": {
+              "projectPath": "D:\\PIU - Proiect\\GestionareaJucatorului\\GestionareaJucatorului.csproj"
             },
-            "D:\\PIU\\Jucator\\Jucator.csproj": {
-              "projectPath": "D:\\PIU\\Jucator\\Jucator.csproj"
+            "D:\\PIU - Proiect\\Jucator\\Jucator.csproj": {
+              "projectPath": "D:\\PIU - Proiect\\Jucator\\Jucator.csproj"
             }
           }
         }

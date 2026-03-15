@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Manager Statistică Jucători")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9e56a42fe46cb79a88cca499e7fac2933f25ffe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5af9615f893956265051081bc1a6396978d779a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Manager Statistică Jucători")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Manager Statistică Jucători")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PIU\\Jucator\\Jucator.csproj": {}
+    "D:\\PIU - Proiect\\Jucator\\Jucator.csproj": {}
   },
   "projects": {
-    "D:\\PIU\\Jucator\\Jucator.csproj": {
+    "D:\\PIU - Proiect\\Jucator\\Jucator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PIU\\Jucator\\Jucator.csproj",
+        "projectUniqueName": "D:\\PIU - Proiect\\Jucator\\Jucator.csproj",
         "projectName": "Jucator",
-        "projectPath": "D:\\PIU\\Jucator\\Jucator.csproj",
+        "projectPath": "D:\\PIU - Proiect\\Jucator\\Jucator.csproj",
         "packagesPath": "C:\\Users\\cc170\\.nuget\\packages\\",
-        "outputPath": "D:\\PIU\\Jucator\\obj\\",
+        "outputPath": "D:\\PIU - Proiect\\Jucator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

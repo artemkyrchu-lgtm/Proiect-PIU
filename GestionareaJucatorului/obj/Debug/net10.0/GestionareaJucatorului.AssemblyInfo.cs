@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GestionareaJucatorului")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5af9615f893956265051081bc1a6396978d779a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("GestionareaJucatorului")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GestionareaJucatorului")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
