@@ -6,7 +6,11 @@ namespace GestionareaJucatorului
 {
     public class PlayerManager
     {
-        public List<Player> PlayerList = new List<Player>();
+        public List<Player> PlayerList;
+        public PlayerManager() 
+        {
+             PlayerList = new List<Player>();
+        }
         public void AddPlayer(Player newPlayer) { PlayerList.Add(newPlayer); }
         public void RemovePlayer(Player DelPlayer) { PlayerList.Remove(DelPlayer); }
         public Player FindPlayerById(int id) { return PlayerList.Find(p => p.Id == id); }
