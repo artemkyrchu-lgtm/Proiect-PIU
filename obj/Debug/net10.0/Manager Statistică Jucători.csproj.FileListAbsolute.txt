@@ -1,0 +1,15 @@
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\Manager Statistică Jucători.GeneratedMSBuildEditorConfig.editorconfig
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\Manager Statistică Jucători.AssemblyInfoInputs.cache
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\Manager Statistică Jucători.AssemblyInfo.cs
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\Manager Statistică Jucători.csproj.CoreCompileInputs.cache
+D:\PIU\Manager Statistică Jucători\bin\Debug\net10.0\Manager Statistică Jucători.exe
+D:\PIU\Manager Statistică Jucători\bin\Debug\net10.0\Manager Statistică Jucători.deps.json
+D:\PIU\Manager Statistică Jucători\bin\Debug\net10.0\Manager Statistică Jucători.runtimeconfig.json
+D:\PIU\Manager Statistică Jucători\bin\Debug\net10.0\Manager Statistică Jucători.dll
+D:\PIU\Manager Statistică Jucători\bin\Debug\net10.0\Manager Statistică Jucători.pdb
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\Manager Statistică Jucători.dll
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\refint\Manager Statistică Jucători.dll
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\Manager Statistică Jucători.pdb
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\Manager Statistică Jucători.genruntimeconfig.cache
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\ref\Manager Statistică Jucători.dll
+D:\PIU\Manager Statistică Jucători\obj\Debug\net10.0\Manager Statistică Jucători.sourcelink.json
