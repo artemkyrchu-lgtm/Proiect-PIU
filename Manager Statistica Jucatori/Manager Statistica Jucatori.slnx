@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../GestionareaJucatorului/GestionareaJucatorului.csproj" />
+  <Project Path="../Jucator/Jucator.csproj" />
+  <Project Path="Manager Statistică Jucători.csproj" />
+</Solution>

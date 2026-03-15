@@ -6,6 +6,7 @@
     <RootNamespace>Manager_Statistică_Jucători</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>ManagerStatisticaJucatori.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
