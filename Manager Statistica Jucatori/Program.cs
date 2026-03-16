@@ -17,8 +17,8 @@ namespace ManagerStatisticaJucatori
                 Console.WriteLine("A. Afisarea Jucatorului");
                 Console.WriteLine("S. Salvarea Jucatorului");
                 Console.WriteLine("P. Afisarea listei Jucatori");
-                Console.WriteLine("J. Cautarea Jucatoru");
-                Console.WriteLine("K. Cautarea Jucatorului");
+                Console.WriteLine("J. Cautarea Jucatorului Dupa Nickname");
+                Console.WriteLine("K. Cautarea Jucatorilor");
                 Console.WriteLine("X. Iesirea");
                 Console.WriteLine("Selectati optiunea dv: ");
                 optiunea = Console.ReadLine();
@@ -52,6 +52,17 @@ namespace ManagerStatisticaJucatori
                         CatalogJucator.AfisareListeiPlayer();
                         break;
                     case "J":
+                        Console.WriteLine("Introduceti nickname-ul jucatorului pe care doriti sa-l cautati: ");
+                        Player player = CatalogJucator.GetPlayerByNickname(Console.ReadLine());
+
+                        if(player != null)
+                        {
+                            player.Afisare();
+                        } else
+                        {
+                            Console.WriteLine("Nu am gasit niciun jucator cu acest nickname, incercati din nou!");
+                            break;
+                        }
                         break;
                     case "K":
                         break;

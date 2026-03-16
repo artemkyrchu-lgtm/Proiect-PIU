@@ -15,7 +15,7 @@ namespace GestionareaJucatorului
         public void AddPlayer(Player newPlayer) { PlayerList.Add(newPlayer); }
         public void RemovePlayer(Player DelPlayer) { PlayerList.Remove(DelPlayer); }
         public Player FindPlayerById(int id) { return PlayerList.Find(p => p.Id == id); }
-        public List<Player> GetPlayerByRole(string role) { return PlayerList.FindAll(p => p.Role == role); }
+        public Player GetPlayerByNickname(string nickname) { return PlayerList.Find(p => p.Nickname == nickname ); }
         public void AfisareListeiPlayer()
         {
             foreach (Player player in PlayerList)
