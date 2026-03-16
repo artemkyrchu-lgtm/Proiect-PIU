@@ -26,13 +26,30 @@ namespace ManagerStatisticaJucatori
                 switch (optiunea)
                 {
                     case "C":
-                        CatalogJucator.AddPlayer(Citirea());
+                        CatalogJucator.Player1 = Citirea();
                         break;
                     case "A":
+                        if (CatalogJucator.Player1 == null)
+                        {
+                            Console.WriteLine("Nu ati introdus un jucator nou");
+                            break;
+                        }
+                        
+                        CatalogJucator.Player1.Afisare();
                         break;
                     case "S":
+                        if (CatalogJucator.Player1 != null)
+                        {
+                            CatalogJucator.AddPlayer(CatalogJucator.Player1);
+                        } else
+                        {
+                            Console.WriteLine("Nu ati citit niciun jucator, incercati din nou!");
+                            break;
+                        }
+                        CatalogJucator.Player1 = null;
                         break;
                     case "P":
+                        CatalogJucator.AfisareListeiPlayer();
                         break;
                     case "J":
                         break;
@@ -52,20 +69,22 @@ namespace ManagerStatisticaJucatori
             string nickaname;
             string hero;
             string role;
-            string performanceStatus;
+            string rank;
             int gamesPlayed = 0;
             int damageDealt = 0;
             int healingDone = 0;
             int damageTaken = 0;
 
             Console.WriteLine("Id: ");
+            id = int.Parse(Console.ReadLine());
+            Console.WriteLine("Nickname: ");
             nickaname = Console.ReadLine();
             Console.WriteLine("Hero: ");
             hero = Console.ReadLine();
             Console.WriteLine("Role: ");
             role = Console.ReadLine();
-            Console.WriteLine("Performance Status: ");
-            performanceStatus = Console.ReadLine();
+            Console.WriteLine("Rank: ");
+            rank = Console.ReadLine();
             Console.WriteLine("Games Played: ");
             gamesPlayed = int.Parse(Console.ReadLine());
             Console.WriteLine("Damage Dealt: ");
@@ -75,8 +94,9 @@ namespace ManagerStatisticaJucatori
             Console.WriteLine("Damage Taken: ");
             damageDealt += int.Parse(Console.ReadLine());
 
-            return new Player(id, nickaname, hero, role, performanceStatus, gamesPlayed, damageDealt, healingDone, damageTaken);
+            return new Player(id, nickaname, hero, role, rank, gamesPlayed, damageDealt, healingDone, damageTaken);
         } 
+        
 
     }
 
