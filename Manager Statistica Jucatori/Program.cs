@@ -21,7 +21,7 @@ namespace ManagerStatisticaJucatori
                 Console.WriteLine("K. Cautarea Jucatorilor");
                 Console.WriteLine("X. Iesirea");
                 Console.WriteLine("Selectati optiunea dv: ");
-                optiunea = Console.ReadLine();
+                optiunea = Console.ReadLine().ToUpper();
 
                 switch (optiunea)
                 {
@@ -67,6 +67,7 @@ namespace ManagerStatisticaJucatori
                     case "K":
                         break;
                     case "X":
+                        Console.WriteLine("La revedere!");
                         break;
                     default:
                         Console.WriteLine("Ati selectat o optiune gresita, incercati din nou!");

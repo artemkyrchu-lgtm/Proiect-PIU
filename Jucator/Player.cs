@@ -2,16 +2,16 @@
 {
     public class Player
     {
-        public int Id { get; set; }
-        public string Nickname { get; set; }
-        public string Hero { get; set; }
-        public string Role { get; set; }
+        public int Id { get; private set; }
+        public string Nickname { get; private set; }
+        public string Hero { get; private set; }
+        public string Role { get; private set; }
 
-        public string Rank { get; set; } // adica cat de bun joace jucatorul
-        public int GamesPlayed { get; set; }
-        public int DamageDealt { get; set; }
-        public int HealingDone { get; set; }
-        public int DamageTaken { get; set; }
+        public string Rank { get; private set; } // adica cat de bun joace jucatorul
+        public int GamesPlayed { get; private set; }
+        public int DamageDealt { get; private set; }
+        public int HealingDone { get; private set; }
+        public int DamageTaken { get; private set; }
 
         public Player(int id, string nickname, string hero, string role, string rank, int gamesPlayed, int damageDealt, int healingDone, int damageTaken)
         {
@@ -32,7 +32,7 @@
             Console.WriteLine($"Nickname:           {Nickname}");
             Console.WriteLine($"Erou:               {Hero}");
             Console.WriteLine($"Rol:                {Role}");
-            Console.WriteLine($"Status Performanta: {Rank}");
+            Console.WriteLine($"Rank:               {Rank}");
             Console.WriteLine($"Meciuri Jucate:     {GamesPlayed}");
             Console.WriteLine($"Damage Dat:         {DamageDealt}");
             Console.WriteLine($"Healing:            {HealingDone}");
