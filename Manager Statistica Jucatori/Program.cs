@@ -1,4 +1,5 @@
 ﻿using System;
+using GestionareaEnum;
 using GestionareaJucatorului;
 using Jucator;
 
@@ -35,7 +36,7 @@ namespace ManagerStatisticaJucatori
                             break;
                         }
                         
-                        CatalogJucator.Player1.Afisare();
+                        Console.WriteLine(CatalogJucator.Player1.InfoAf());
                         break;
                     case "S":
                         if (CatalogJucator.Player1 != null)
@@ -57,7 +58,7 @@ namespace ManagerStatisticaJucatori
 
                         if(player != null)
                         {
-                            player.Afisare();
+                            player.InfoAf();
                         } else
                         {
                             Console.WriteLine("Nu am gasit niciun jucator cu acest nickname, incercati din nou!");
@@ -93,10 +94,43 @@ namespace ManagerStatisticaJucatori
             nickaname = Console.ReadLine();
             Console.WriteLine("Hero: ");
             hero = Console.ReadLine();
-            Console.WriteLine("Role: ");
-            role = Console.ReadLine();
-            Console.WriteLine("Rank: ");
-            rank = Console.ReadLine();
+
+            var tRole = Enum.GetValues<Rolu>();
+            Console.WriteLine("Available Roles: ");
+            int cont = 1;
+            foreach (var role1 in tRole)
+            {
+                Console.WriteLine($"{(cont++)} - {role1}");
+            }
+            int roleIndex;
+            do
+            {
+                Console.WriteLine("Select Role: ");
+                int.TryParse(Console.ReadLine(), out roleIndex);
+            }
+            while (roleIndex < 1 || roleIndex > 3);
+
+            Rolu rolu = (Rolu)(1 << (roleIndex - 1));
+
+
+            var tRank = Enum.GetValues<Ranku>();
+            int rankSelectat = 0;
+
+            Console.WriteLine("Sunt disponibile Rank: ");
+            foreach (var rank1 in tRank)
+            {
+                Console.WriteLine($"{(int)rank1} - {rank1}");
+            }
+
+            do
+            {
+                Console.Write("Select Rank: ");
+                int.TryParse(Console.ReadLine(), out rankSelectat);
+            }
+            while (!Enum.IsDefined(typeof(Ranku), rankSelectat));
+
+            Ranku rankSel = (Ranku)rankSelectat;
+
             Console.WriteLine("Games Played: ");
             gamesPlayed = int.Parse(Console.ReadLine());
             Console.WriteLine("Damage Dealt: ");
@@ -106,7 +140,7 @@ namespace ManagerStatisticaJucatori
             Console.WriteLine("Damage Taken: ");
             damageDealt += int.Parse(Console.ReadLine());
 
-            return new Player(id, nickaname, hero, role, rank, gamesPlayed, damageDealt, healingDone, damageTaken);
+            return new Player(id, nickaname, hero, rolu, rankSel, gamesPlayed, damageDealt, healingDone, damageTaken);
         } 
         
 
