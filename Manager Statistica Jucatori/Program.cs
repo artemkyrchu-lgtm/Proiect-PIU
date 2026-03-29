@@ -2,6 +2,7 @@
 using GestionareaEnum;
 using GestionareaJucatorului;
 using Jucator;
+using Manager_Statistică_Jucători;
 
 namespace ManagerStatisticaJucatori
 {
@@ -10,7 +11,10 @@ namespace ManagerStatisticaJucatori
         static void Main(string[] args)
         {
             string optiunea;
-            PlayerManager CatalogJucator = new PlayerManager();
+            Player Player1 = null;
+
+
+            StocareJucatorului CatalogJucator = Decider.GetPlayerManager();
             do
             {
                 Console.WriteLine("MENU");
@@ -19,7 +23,7 @@ namespace ManagerStatisticaJucatori
                 Console.WriteLine("S. Salvarea Jucatorului");
                 Console.WriteLine("P. Afisarea listei Jucatori");
                 Console.WriteLine("J. Cautarea Jucatorului Dupa Nickname");
-                Console.WriteLine("K. Cautarea Jucatorilor");
+          
                 Console.WriteLine("X. Iesirea");
                 Console.WriteLine("Selectati optiunea dv: ");
                 optiunea = Console.ReadLine().ToUpper();
@@ -27,46 +31,56 @@ namespace ManagerStatisticaJucatori
                 switch (optiunea)
                 {
                     case "C":
-                        CatalogJucator.Player1 = Citirea();
+                        Player1 = Citirea();
                         break;
                     case "A":
-                        if (CatalogJucator.Player1 == null)
+                        if (Player1 == null)
                         {
                             Console.WriteLine("Nu ati introdus un jucator nou");
                             break;
                         }
                         
-                        Console.WriteLine(CatalogJucator.Player1.InfoAf());
+                        Console.WriteLine(Player1.InfoAf());
                         break;
                     case "S":
-                        if (CatalogJucator.Player1 != null)
+                        if (Player1 != null)
                         {
-                            CatalogJucator.AddPlayer(CatalogJucator.Player1);
+                            CatalogJucator.AddPlayer(Player1);
+                            Console.WriteLine("Player este salvat!");
                         } else
                         {
                             Console.WriteLine("Nu ati citit niciun jucator, incercati din nou!");
                             break;
                         }
-                        CatalogJucator.Player1 = null;
+                        Player1 = null;
                         break;
                     case "P":
-                        CatalogJucator.AfisareListeiPlayer();
+                        List<Player> players = CatalogJucator.GetPlayers();
+                        if (players.Count == 0)
+                        {
+                            Console.WriteLine("Nu exista niciun jucator in lista, incercati din nou!");
+                            break;
+                        }
+
+                        foreach (var item in players)
+                        {
+                            Console.WriteLine(item.InfoAf());
+                        }
                         break;
                     case "J":
                         Console.WriteLine("Introduceti nickname-ul jucatorului pe care doriti sa-l cautati: ");
-                        Player player = CatalogJucator.GetPlayerByNickname(Console.ReadLine());
+                        Player player = CatalogJucator.GetPlayerNickname(Console.ReadLine());
 
                         if(player != null)
                         {
-                            player.InfoAf();
+                            Console.WriteLine(player.InfoAf());
                         } else
                         {
                             Console.WriteLine("Nu am gasit niciun jucator cu acest nickname, incercati din nou!");
                             break;
                         }
                         break;
-                    case "K":
-                        break;
+                    
                     case "X":
                         Console.WriteLine("La revedere!");
                         break;
@@ -88,8 +102,12 @@ namespace ManagerStatisticaJucatori
             int healingDone = 0;
             int damageTaken = 0;
 
-            Console.WriteLine("Id: ");
-            id = int.Parse(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("Id: ");
+                int.TryParse(Console.ReadLine(), out id);
+            }
+            while (id <= 0);
             Console.WriteLine("Nickname: ");
             nickaname = Console.ReadLine();
             Console.WriteLine("Hero: ");
@@ -130,15 +148,33 @@ namespace ManagerStatisticaJucatori
             while (!Enum.IsDefined(typeof(Ranku), rankSelectat));
 
             Ranku rankSel = (Ranku)rankSelectat;
+            do
+            {
+                Console.WriteLine("Games Played: ");
+                int.TryParse(Console.ReadLine(), out gamesPlayed);
+            }
+            while (gamesPlayed <= 0);
+            do
+            {
+                Console.WriteLine("Damage Deatl: ");
+                int.TryParse(Console.ReadLine(), out damageDealt);
+            }
+            while (damageDealt <= 0);
+            do
+            {
+                Console.WriteLine("Healing Done: ");
+                int.TryParse(Console.ReadLine(), out healingDone);
+            }
+            while (healingDone < 0);
+            do
+            {
+                Console.WriteLine("Damage Taken: ");
+                int.TryParse(Console.ReadLine(), out damageTaken);
+            }
+            while (damageTaken <= 0);
 
-            Console.WriteLine("Games Played: ");
-            gamesPlayed = int.Parse(Console.ReadLine());
-            Console.WriteLine("Damage Dealt: ");
-            damageDealt = int.Parse(Console.ReadLine());    
-            Console.WriteLine("Healing Done: ");
-            healingDone = int.Parse(Console.ReadLine());
-            Console.WriteLine("Damage Taken: ");
-            damageDealt += int.Parse(Console.ReadLine());
+            
+            
 
             return new Player(id, nickaname, hero, rolu, rankSel, gamesPlayed, damageDealt, healingDone, damageTaken);
         } 
