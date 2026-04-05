@@ -22,6 +22,7 @@ namespace Manager_Statistică_Jucători
             string caleCompletaFisier = locatieFisierSolutie + "\\" + numeFisier;
 
             Console.WriteLine($"Format de salvare selectat: {caleCompletaFisier}");
+            Console.WriteLine($"{formatSalvare}");
 
             if (formatSalvare != null)
             {

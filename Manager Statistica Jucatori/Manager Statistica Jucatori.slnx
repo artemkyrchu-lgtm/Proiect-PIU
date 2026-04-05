@@ -2,5 +2,6 @@
   <Project Path="../GestionareaEnum/GestionareaEnum.csproj" Id="13105389-f773-4a1e-ba67-4942dcf2908f" />
   <Project Path="../GestionareaJucatorului/GestionareaJucatorului.csproj" />
   <Project Path="../Jucator/Jucator.csproj" />
+  <Project Path="../Wpf/Wpf.csproj" Id="9a8007e4-ead9-47e4-9222-75998c886ade" />
   <Project Path="Manager Statistică Jucători.csproj" />
 </Solution>
