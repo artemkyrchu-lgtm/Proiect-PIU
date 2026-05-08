@@ -112,6 +112,7 @@ namespace ManagerStatisticaJucatori
             nickaname = Console.ReadLine();
             Console.WriteLine("Hero: ");
             hero = Console.ReadLine();
+            Herou herou = (Herou)Enum.Parse(typeof(Herou), hero.Replace(" ", "_"), true);
 
             var tRole = Enum.GetValues<Rolu>();
             Console.WriteLine("Available Roles: ");
@@ -176,7 +177,7 @@ namespace ManagerStatisticaJucatori
             
             
 
-            return new Player(id, nickaname, hero, rolu, rankSel, gamesPlayed, damageDealt, healingDone, damageTaken);
+            return new Player(id, nickaname, herou, rolu, rankSel, gamesPlayed, damageDealt, healingDone, damageTaken);
         } 
         
 
