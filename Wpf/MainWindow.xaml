@@ -1,45 +1,212 @@
-﻿<Window x:Class="WpfApp.MainWindow"
+<Window x:Class="Wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gestionare Jucători"
-        Height="500" Width="800">
+        Title="Gestiunea Jucătorilor" Height="680" Width="920"
+        Background="#F4F4F8" ResizeMode="CanMinimize">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <TextBlock TextWrapping="Wrap"
-                   FontSize="14"
-                   Margin="15">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="BorderBrush" Value="#C8C8D4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#444466"/>
+            <Setter Property="Padding" Value="0,0,0,2"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ErrStyle">
+            <Setter Property="Foreground" Value="#D0021B"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.88"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,12,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="4,0"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#33335A"/>
+            <Setter Property="BorderBrush" Value="#C8C8D4"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="10,8"/>
+        </Style>
+    </Window.Resources>
 
-Gestionare Jucători
+    <Grid Margin="24,20,24,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-Adăugare: Bagi un jucător nou în listă.
+        <StackPanel Grid.Row="0" Margin="0,0,0,14">
+            <TextBlock Text="Gestiunea Jucătorilor" FontSize="22" FontWeight="Bold" Foreground="#22224A"/>
+            <TextBlock Text="Completați câmpurile de mai jos pentru a adăuga un jucător nou" FontSize="12" Foreground="#7777AA" Margin="0,3,0,0"/>
+            <Border Height="1" Background="#DDDDE8" Margin="0,10,0,0"/>
+        </StackPanel>
 
-Ștergere: Scoți un jucător din listă.
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
-Căutare: Găsești rapid un jucător după ID.
+                <GroupBox Header="Informații de bază">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-Listă Completă: Vezi tabelul cu toți jucătorii tăi.
+                        <StackPanel Grid.Column="0">
+                            <Label x:Name="lblNickname" Content="NICKNAME"/>
+                            <TextBox x:Name="txtNickname"/>
+                            <TextBlock x:Name="errNickname" Style="{StaticResource ErrStyle}" Text="⚠ Nickname invalid"/>
+                        </StackPanel>
 
-Statistici a Jucătorului
+                        <StackPanel Grid.Column="2">
+                            <Label x:Name="lblHero" Content="EROU"/>
+                            <TextBox x:Name="txtHero"/>
+                            <TextBlock x:Name="errHero" Style="{StaticResource ErrStyle}" Text="⚠ Eroul este obligatoriu"/>
+                        </StackPanel>
 
-Damage Dealt: Cât de mult a lovit.
+                        <StackPanel Grid.Column="4">
+                            <Label Content="RANK"/>
+                            <ComboBox x:Name="cmbRank"/>
+                            <TextBlock x:Name="errRank" Style="{StaticResource ErrStyle}" Text="⚠ Selectați un rank"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
 
-Healing: Cât de mult a vindecat.
+                <GroupBox Header="Rol jucător">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <CheckBox x:Name="chkDps" Content="DPS"/>
+                            <CheckBox x:Name="chkTank" Content="Tank"/>
+                            <CheckBox x:Name="chkHealer" Content="Healer"/>
+                        </StackPanel>
+                        <TextBlock x:Name="errRole" Style="{StaticResource ErrStyle}" Text="⚠ Selectați cel puțin un rol"/>
+                    </StackPanel>
+                </GroupBox>
 
-Damage Taken: Cât de multă bătaie a încasat.
+                <GroupBox Header="Statistici">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-Personaj: Pe ce erou a jucat.
+                        <StackPanel Grid.Column="0">
+                            <Label x:Name="lblGames" Content="MECIURI JUCATE"/>
+                            <TextBox x:Name="txtGamesPlayed"/>
+                            <TextBlock x:Name="errGamesPlayed" Style="{StaticResource ErrStyle}" Text="⚠ Minim 1 meci"/>
+                        </StackPanel>
 
-Roluri
+                        <StackPanel Grid.Column="2">
+                            <Label x:Name="lblDamage" Content="DAMAGE DEALT"/>
+                            <TextBox x:Name="txtDamageDealt"/>
+                            <TextBlock x:Name="errDamageDealt" Style="{StaticResource ErrStyle}" Text="⚠ Valoare invalidă (≥ 0)"/>
+                        </StackPanel>
 
-Categorii: Împarte jucătorii pe categorii: Tank, Support sau DPS.
+                        <StackPanel Grid.Column="4">
+                            <Label x:Name="lblHealing" Content="HEALING DONE"/>
+                            <TextBox x:Name="txtHealingDone"/>
+                            <TextBlock x:Name="errHealingDone" Style="{StaticResource ErrStyle}" Text="⚠ Valoare invalidă (≥ 0)"/>
+                        </StackPanel>
 
-Sortare: Poți să vezi doar jucătorii de tip "Support", "DPS" sau "Tank".
+                        <StackPanel Grid.Column="6">
+                            <Label x:Name="lblDamageTaken" Content="DAMAGE TAKEN"/>
+                            <TextBox x:Name="txtDamageTaken"/>
+                            <TextBlock x:Name="errDamageTaken" Style="{StaticResource ErrStyle}" Text="⚠ Valoare invalidă (≥ 0)"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
 
-Calcul de Performanță
+                <GroupBox Header="Listă jucători adăugați">
+                    <DataGrid x:Name="dgJucatori"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Height="160"
+                              GridLinesVisibility="Horizontal"
+                              HeadersVisibility="Column"
+                              BorderThickness="0"
+                              FontSize="12"
+                              RowBackground="White"
+                              AlternatingRowBackground="#F8F8FC">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID"         Binding="{Binding Id}"           Width="45"/>
+                            <DataGridTextColumn Header="Nickname"   Binding="{Binding Nickname}"     Width="120"/>
+                            <DataGridTextColumn Header="Erou"       Binding="{Binding Hero}"         Width="110"/>
+                            <DataGridTextColumn Header="Rol"        Binding="{Binding Role}"         Width="110"/>
+                            <DataGridTextColumn Header="Rank"       Binding="{Binding Rank}"         Width="100"/>
+                            <DataGridTextColumn Header="Meciuri"    Binding="{Binding GamesPlayed}"  Width="70"/>
+                            <DataGridTextColumn Header="DMG Dat"    Binding="{Binding DamageDealt}"  Width="80"/>
+                            <DataGridTextColumn Header="Healing"    Binding="{Binding HealingDone}"  Width="70"/>
+                            <DataGridTextColumn Header="DMG Primit" Binding="{Binding DamageTaken}"  Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
 
-Analiză: Aplicația îți spune automat dacă un jucător este Bun sau Slab, bazându-se pe cifrele lui (Damage/Healing/Damage Taken).
+            </StackPanel>
+        </ScrollViewer>
 
-        </TextBlock>
-    </ScrollViewer>
+        <Border Grid.Row="2" x:Name="borderMesaj" CornerRadius="5" Padding="12,7"
+                Margin="0,6,0,0" Visibility="Collapsed">
+            <TextBlock x:Name="txtMesaj" FontSize="13" FontWeight="SemiBold"/>
+        </Border>
 
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="btnReseteaza" Content="Resetează" Width="110"
+                    Background="#7777AA" Padding="12,0"
+                    Click="btnReseteaza_Click" Margin="0,0,10,0"/>
+            <Button x:Name="btnAdauga" Content="＋ Adaugă jucător" Width="150"
+                    Background="#3B3B8E" Padding="12,0"
+                    Click="btnAdauga_Click"/>
+        </StackPanel>
+
+    </Grid>
 </Window>

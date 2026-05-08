@@ -8,4 +8,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GestionareaEnum\GestionareaEnum.csproj" />
+    <ProjectReference Include="..\GestionareaJucatorului\GestionareaJucatorului.csproj" />
+    <ProjectReference Include="..\Jucator\Jucator.csproj" />
+    <ProjectReference Include="..\Manager Statistica Jucatori\Manager Statistică Jucători.csproj" />
+  </ItemGroup>
+
 </Project>
