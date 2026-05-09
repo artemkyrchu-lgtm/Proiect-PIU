@@ -21,6 +21,28 @@ namespace Wpf
         private static readonly Brush LABEL_DEFAULT  = new SolidColorBrush(Color.FromRgb(0x44, 0x44, 0x66));
         private static readonly Brush LABEL_EROARE   = new SolidColorBrush(Color.FromRgb(0xD0, 0x02, 0x1B));
 
+        private static readonly List<string> HeroDps = new List<string>
+        {
+            "Black Cat", "Black Panther", "Black Widow", "Blade", "Daredevil", "Deadpool",
+            "Elsa Bloodstone", "Hawkeye", "Hela", "Human Torch", "Iron Fist", "Iron Man",
+            "Magik", "Mister Fantastic", "Moon Knight", "Namor", "Phoenix", "Psylocke",
+            "Scarlet Witch", "Spider Man", "Squirrel Girl", "Star Lord", "Storm",
+            "The Punisher", "Winter Soldier", "Wolverine"
+        };
+
+        private static readonly List<string> HeroTank = new List<string>
+        {
+            "Angela", "Captain America", "Doctor Strange", "Deadpool", "Emma Frost",
+            "Groot", "Hulk", "Magneto", "Peni Parker", "Rogue", "The Thing", "Thor", "Venom"
+        };
+
+        private static readonly List<string> HeroHealer = new List<string>
+        {
+            "Adam Warlock", "Cloak Dagger", "Deadpool", "Gambit", "Invisible Woman",
+            "Jeff The Land Shark", "Loki", "Luna Snow", "Mantis", "Rocket Raccoon",
+            "Ultron", "White Fox"
+        };
+
         private readonly StocareJucatorului catalog;
         private int? idJucatorModificat = null;
 
@@ -29,7 +51,7 @@ namespace Wpf
             InitializeComponent();
             catalog = Decider.GetPlayerManager();
             PopuleazaRank();
-            PopuleazaHero();
+            ActualizeazaHeroiDisponibili();
             RefreshGrid();
         }
 
@@ -39,13 +61,43 @@ namespace Wpf
             cmbRank.SelectedIndex = 0;
         }
 
-        private void PopuleazaHero()
+        private void ActualizeazaHeroiDisponibili()
         {
-            cmbHero.ItemsSource = Enum.GetValues(typeof(Herou))
-                                      .Cast<Herou>()
-                                      .Select(h => h.ToString().Replace('_', ' '))
-                                      .ToList();
-            cmbHero.SelectedIndex = 0;
+            bool dps    = chkDps.IsChecked    == true;
+            bool tank   = chkTank.IsChecked   == true;
+            bool healer = chkHealer.IsChecked == true;
+
+            HashSet<string> heroi = new HashSet<string>();
+
+            if (!dps && !tank && !healer)
+            {
+                heroi.UnionWith(HeroDps);
+                heroi.UnionWith(HeroTank);
+                heroi.UnionWith(HeroHealer);
+            }
+            else
+            {
+                if (dps)    heroi.UnionWith(HeroDps);
+                if (tank)   heroi.UnionWith(HeroTank);
+                if (healer) heroi.UnionWith(HeroHealer);
+            }
+
+            string selectedHero = cmbHero.SelectedItem?.ToString();
+            cmbHero.ItemsSource = heroi.OrderBy(h => h).ToList();
+
+            if (selectedHero != null && heroi.Contains(selectedHero))
+            {
+                cmbHero.SelectedItem = selectedHero;
+            }
+            else
+            {
+                cmbHero.SelectedIndex = 0;
+            }
+        }
+
+        private void chkRole_Changed(object sender, RoutedEventArgs e)
+        {
+            ActualizeazaHeroiDisponibili();
         }
 
         private void RefreshGrid()
@@ -65,21 +117,26 @@ namespace Wpf
 
             idJucatorModificat = selectat.Id;
 
-            txtNickname.Text      = selectat.Nickname;
-            cmbHero.SelectedItem  = selectat.Hero.ToString().Replace('_', ' ');
-            cmbRank.SelectedItem  = selectat.Rank.ToString();
-            chkDps.IsChecked      = selectat.Role.HasFlag(Rolu.Dps);
-            chkTank.IsChecked     = selectat.Role.HasFlag(Rolu.Tank);
-            chkHealer.IsChecked   = selectat.Role.HasFlag(Rolu.Healer);
-            txtGamesPlayed.Text   = selectat.GamesPlayed.ToString();
-            txtDamageDealt.Text   = selectat.DamageDealt.ToString();
-            txtHealingDone.Text   = selectat.HealingDone.ToString();
-            txtDamageTaken.Text   = selectat.DamageTaken.ToString();
+            txtNickname.Text    = selectat.Nickname;
+            cmbRank.SelectedItem = selectat.Rank.ToString();
+            chkDps.IsChecked    = selectat.Role.HasFlag(Rolu.Dps);
+            chkTank.IsChecked   = selectat.Role.HasFlag(Rolu.Tank);
+            chkHealer.IsChecked = selectat.Role.HasFlag(Rolu.Healer);
 
-            btnAdauga.Content          = "✔ Salvează modificările";
-            btnAdauga.Background       = new SolidColorBrush(Color.FromRgb(0x0A, 0x6E, 0x3A));
-            txtSubtitle.Text           = $"Modificați datele jucătorului cu ID {selectat.Id} și apăsați „Salvează modificările";
-            borderMesaj.Visibility     = Visibility.Collapsed;
+            ActualizeazaHeroiDisponibili();
+
+            string heroAfisat = selectat.Hero.ToString().Replace('_', ' ');
+            cmbHero.SelectedItem = heroAfisat;
+
+            txtGamesPlayed.Text = selectat.GamesPlayed.ToString();
+            txtDamageDealt.Text = selectat.DamageDealt.ToString();
+            txtHealingDone.Text = selectat.HealingDone.ToString();
+            txtDamageTaken.Text = selectat.DamageTaken.ToString();
+
+            btnAdauga.Content    = "Salveaza modificarile";
+            btnAdauga.Background = new SolidColorBrush(Color.FromRgb(0x0A, 0x6E, 0x3A));
+            txtSubtitle.Text     = $"Modificati datele jucatorului cu ID {selectat.Id} si apasati Salveaza modificarile";
+            borderMesaj.Visibility = Visibility.Collapsed;
         }
 
         private void btnAdauga_Click(object sender, RoutedEventArgs e)
@@ -112,7 +169,7 @@ namespace Wpf
 
                 catalog.updatePlayer(jucatorModificat);
                 RefreshGrid();
-                AfiseazaMesaj($"Jucătorul cu ID {idJucatorModificat.Value} a fost modificat cu succes!", succes: true);
+                AfiseazaMesaj($"Jucatorul cu ID {idJucatorModificat.Value} a fost modificat cu succes!", succes: true);
                 InchideModulModificare();
             }
             else
@@ -126,7 +183,7 @@ namespace Wpf
 
                 catalog.AddPlayer(jucator);
                 RefreshGrid();
-                AfiseazaMesaj("Jucătorul a fost adăugat cu succes!", succes: true);
+                AfiseazaMesaj("Jucatorul a fost adaugat cu succes!", succes: true);
             }
 
             Reseteaza();
@@ -141,12 +198,12 @@ namespace Wpf
 
         private void InchideModulModificare()
         {
-            idJucatorModificat         = null;
-            btnAdauga.Content          = "＋ Adaugă jucător";
-            btnAdauga.Background       = new SolidColorBrush(Color.FromRgb(0x3B, 0x3B, 0x8E));
-            txtSubtitle.Text           = "Completați câmpurile de mai jos pentru a adăuga un jucător nou";
-            dgJucatori.SelectedItem    = null;
-            btnModifica.IsEnabled      = false;
+            idJucatorModificat      = null;
+            btnAdauga.Content       = "Adauga jucator";
+            btnAdauga.Background    = new SolidColorBrush(Color.FromRgb(0x3B, 0x3B, 0x8E));
+            txtSubtitle.Text        = "Completati campurile de mai jos pentru a adauga un jucator nou";
+            dgJucatori.SelectedItem = null;
+            btnModifica.IsEnabled   = false;
         }
 
         private void Reseteaza()
@@ -160,7 +217,7 @@ namespace Wpf
             chkTank.IsChecked   = false;
             chkHealer.IsChecked = false;
             cmbRank.SelectedIndex = 0;
-            cmbHero.SelectedIndex = 0;
+            ActualizeazaHeroiDisponibili();
             ReseteazaToateErori();
         }
 
@@ -172,8 +229,7 @@ namespace Wpf
             string nickname = txtNickname.Text.Trim();
             if (string.IsNullOrEmpty(nickname) || nickname.Length < NICKNAME_LUNGIME_MIN || nickname.Length > NICKNAME_LUNGIME_MAX)
             {
-                MarcheazaEroareCmb(errNickname, lblNickname,
-                    $"⚠ Nickname: {NICKNAME_LUNGIME_MIN}–{NICKNAME_LUNGIME_MAX} caractere");
+                MarcheazaEroareCmb(errNickname, lblNickname, $"Nickname: {NICKNAME_LUNGIME_MIN}-{NICKNAME_LUNGIME_MAX} caractere");
                 txtNickname.BorderBrush = BORDER_EROARE;
                 txtNickname.Background  = BG_EROARE;
                 valid = false;
@@ -181,38 +237,38 @@ namespace Wpf
 
             if (cmbHero.SelectedIndex < 0)
             {
-                MarcheazaEroareCmb(errHero, lblHero, "⚠ Selectați un erou");
+                MarcheazaEroareCmb(errHero, lblHero, "Selectati un erou");
                 valid = false;
             }
 
             if (chkDps.IsChecked != true && chkTank.IsChecked != true && chkHealer.IsChecked != true)
             {
-                errRole.Text       = "⚠ Selectați cel puțin un rol";
+                errRole.Text       = "Selectati cel putin un rol";
                 errRole.Visibility = Visibility.Visible;
                 valid = false;
             }
 
             if (!int.TryParse(txtGamesPlayed.Text.Trim(), out int games) || games < GAMES_MIN)
             {
-                MarcheazaEroare(txtGamesPlayed, errGamesPlayed, lblGames, $"⚠ Meciuri jucate: minim {GAMES_MIN}");
+                MarcheazaEroare(txtGamesPlayed, errGamesPlayed, lblGames, $"Meciuri jucate: minim {GAMES_MIN}");
                 valid = false;
             }
 
             if (!int.TryParse(txtDamageDealt.Text.Trim(), out int dmgDealt) || dmgDealt < STAT_MIN)
             {
-                MarcheazaEroare(txtDamageDealt, errDamageDealt, lblDamage, $"⚠ Damage dealt: minim {STAT_MIN}");
+                MarcheazaEroare(txtDamageDealt, errDamageDealt, lblDamage, $"Damage dealt: minim {STAT_MIN}");
                 valid = false;
             }
 
             if (!int.TryParse(txtHealingDone.Text.Trim(), out int healing) || healing < STAT_MIN)
             {
-                MarcheazaEroare(txtHealingDone, errHealingDone, lblHealing, $"⚠ Healing done: minim {STAT_MIN}");
+                MarcheazaEroare(txtHealingDone, errHealingDone, lblHealing, $"Healing done: minim {STAT_MIN}");
                 valid = false;
             }
 
             if (!int.TryParse(txtDamageTaken.Text.Trim(), out int dmgTaken) || dmgTaken < STAT_MIN)
             {
-                MarcheazaEroare(txtDamageTaken, errDamageTaken, lblDamageTaken, $"⚠ Damage taken: minim {STAT_MIN}");
+                MarcheazaEroare(txtDamageTaken, errDamageTaken, lblDamageTaken, $"Damage taken: minim {STAT_MIN}");
                 valid = false;
             }
 
@@ -221,11 +277,11 @@ namespace Wpf
 
         private void MarcheazaEroare(TextBox camp, TextBlock eroare, Label eticheta, string mesaj)
         {
-            camp.BorderBrush      = BORDER_EROARE;
-            camp.Background       = BG_EROARE;
-            eroare.Text           = mesaj;
-            eroare.Visibility     = Visibility.Visible;
-            eticheta.Foreground   = LABEL_EROARE;
+            camp.BorderBrush    = BORDER_EROARE;
+            camp.Background     = BG_EROARE;
+            eroare.Text         = mesaj;
+            eroare.Visibility   = Visibility.Visible;
+            eticheta.Foreground = LABEL_EROARE;
         }
 
         private void MarcheazaEroareCmb(TextBlock eroare, Label eticheta, string mesaj)
@@ -242,9 +298,9 @@ namespace Wpf
             ReseteazaCamp(txtDamageDealt, errDamageDealt, lblDamage);
             ReseteazaCamp(txtHealingDone, errHealingDone, lblHealing);
             ReseteazaCamp(txtDamageTaken, errDamageTaken, lblDamageTaken);
-            errHero.Visibility  = Visibility.Collapsed;
-            lblHero.Foreground  = LABEL_DEFAULT;
-            errRole.Visibility  = Visibility.Collapsed;
+            errHero.Visibility = Visibility.Collapsed;
+            lblHero.Foreground = LABEL_DEFAULT;
+            errRole.Visibility = Visibility.Collapsed;
         }
 
         private void ReseteazaCamp(TextBox camp, TextBlock eroare, Label eticheta)
