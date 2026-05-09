@@ -31,14 +31,14 @@ namespace Manager_Statistică_Jucători
         {
             string numeFisierCuExtensie = $"{numeFisier}.{extensie}";
 
-            // 1. Lângă executabil (bin\Debug\...) — cel mai simplu și fiabil
+           
             string lângăExe = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 numeFisierCuExtensie);
 
             if (File.Exists(lângăExe)) return lângăExe;
 
-            // 2. Urcăm până la 4 nivele față de executabil (acoperă bin\Debug\net8.0-windows)
+            
             string dir = AppDomain.CurrentDomain.BaseDirectory;
             for (int i = 0; i < 4; i++)
             {
@@ -49,7 +49,7 @@ namespace Manager_Statistică_Jucători
                 dir = parent;
             }
 
-            // 3. Nu există — îl creăm lângă executabil
+           
             return lângăExe;
         }
     }
