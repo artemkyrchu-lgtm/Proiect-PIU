@@ -5,11 +5,11 @@ namespace Jucator
     public class Player
     {
         public int    Id           { get; private set; }
-        public string Nickname     { get; private set; }
+        public string Nickname     { get;  set; }
         public Herou  Hero         { get; private set; }
         public Rolu   Role         { get; private set; } = 0;
         public Ranku  Rank         { get; private set; }
-        public int    GamesPlayed  { get; private set; }
+        public int    GamesPlayed  { get;  set; }
         public int    DamageDealt  { get; private set; }
         public int    HealingDone  { get; private set; }
         public int    DamageTaken  { get; private set; }

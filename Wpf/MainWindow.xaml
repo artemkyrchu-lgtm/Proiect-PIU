@@ -1,41 +1,131 @@
 <Window x:Class="Wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gestiunea Jucatorilor" Height="780" Width="960"
-        Background="#F4F4F8" ResizeMode="CanMinimize">
+        Title="Manager Statistici Jucatori" Height="700" Width="1100"
+        Closing="Window_Closing"
+        Background="#F0F2F5" ResizeMode="CanMinimize">
 
     <Window.Resources>
+
         <Style TargetType="TextBox">
             <Setter Property="Height" Value="34"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Padding" Value="6,4"/>
-            <Setter Property="BorderBrush" Value="#C8C8D4"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="White"/>
         </Style>
+
         <Style TargetType="Label">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Foreground" Value="#444466"/>
-            <Setter Property="Padding" Value="0,0,0,2"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="#6B7280"/>
+            <Setter Property="Padding" Value="0,0,0,3"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
+
         <Style TargetType="TextBlock" x:Key="ErrStyle">
-            <Setter Property="Foreground" Value="#D0021B"/>
+            <Setter Property="Foreground" Value="#DC2626"/>
             <Setter Property="FontSize" Value="11"/>
             <Setter Property="Margin" Value="0,2,0,0"/>
             <Setter Property="Visibility" Value="Collapsed"/>
         </Style>
-        <Style TargetType="Button">
-            <Setter Property="Height" Value="36"/>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="6,0"/>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,16,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#374151"/>
+        </Style>
+
+        <Style x:Key="SidebarBtn" TargetType="Button">
+            <Setter Property="Height" Value="52"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#6B7280"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="18,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="brd" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Margin="8,2">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                        Margin="{TemplateBinding Padding}">
+                                <TextBlock Text="{TemplateBinding Tag}"
+                                           FontSize="15" Margin="0,0,10,0"
+                                           VerticalAlignment="Center"
+                                           Foreground="{TemplateBinding Foreground}"/>
+                                <ContentPresenter VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="brd" Property="Background" Value="#F3F4F6"/>
+                                <Setter Property="Foreground" Value="#1D4ED8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SidebarBtnActiv" TargetType="Button">
+            <Setter Property="Height" Value="52"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#1D4ED8"/>
+            <Setter Property="Background" Value="#EFF6FF"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="18,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8" Margin="8,2"
+                                BorderBrush="#BFDBFE" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                        Margin="{TemplateBinding Padding}">
+                                <TextBlock Text="{TemplateBinding Tag}"
+                                           FontSize="15" Margin="0,0,10,0"
+                                           VerticalAlignment="Center"
+                                           Foreground="{TemplateBinding Foreground}"/>
+                                <ContentPresenter VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnPrincipal" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="18,0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -43,181 +133,631 @@
                                 <Setter Property="Opacity" Value="0.88"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Opacity" Value="0.75"/>
+                                <Setter Property="Opacity" Value="0.72"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.40"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="CheckBox">
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Margin" Value="0,0,12,0"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="Height" Value="34"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Padding" Value="4,0"/>
-        </Style>
-        <Style TargetType="GroupBox">
+
+        <Style x:Key="BtnSecundar" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#33335A"/>
-            <Setter Property="BorderBrush" Value="#C8C8D4"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="Padding" Value="18,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F9FAFB"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
+
     </Window.Resources>
 
-    <Grid Margin="24,20,24,20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="215"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,14">
-            <TextBlock Text="Gestiunea Jucatorilor" FontSize="22" FontWeight="Bold" Foreground="#22224A"/>
-            <TextBlock x:Name="txtSubtitle" Text="Completati campurile de mai jos pentru a adauga un jucator nou"
-                       FontSize="12" Foreground="#7777AA" Margin="0,3,0,0"/>
-            <Border Height="1" Background="#DDDDE8" Margin="0,10,0,0"/>
-        </StackPanel>
+        
+        <Border Grid.Column="0" Background="White"
+                BorderBrush="#E5E7EB" BorderThickness="0,0,1,0">
+            <DockPanel>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+                <StackPanel DockPanel.Dock="Top" Margin="18,22,18,18">
+                    <TextBlock Text="Marvel Rivals"
+                               FontSize="16" FontWeight="Bold" Foreground="#1E3A8A"/>
+                    <TextBlock Text="Manager Jucatori"
+                               FontSize="11" Foreground="#9CA3AF" Margin="0,3,0,0"/>
+                    <Border Height="1" Background="#E5E7EB" Margin="0,14,0,0"/>
+                </StackPanel>
 
-                <GroupBox Header="Informatii de baza">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="16"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="16"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                <StackPanel DockPanel.Dock="Top" Margin="0,4,0,0">
+                    <Button x:Name="btnMeniuAdaugare"
+                            Content="Adaugare Jucator"
+                            Tag="+"
+                            Style="{StaticResource SidebarBtnActiv}"
+                            Click="btnMeniuAdaugare_Click"/>
 
-                        <StackPanel Grid.Column="0">
-                            <Label x:Name="lblNickname" Content="NICKNAME"/>
-                            <TextBox x:Name="txtNickname"/>
-                            <TextBlock x:Name="errNickname" Style="{StaticResource ErrStyle}" Text="Nickname invalid"/>
-                        </StackPanel>
+                    <Button x:Name="btnMeniuModificare"
+                            Content="Modificare Jucator"
+                            Tag="~"
+                            Style="{StaticResource SidebarBtn}"
+                            Click="btnMeniuModificare_Click"/>
 
-                        <StackPanel Grid.Column="2">
-                            <Label x:Name="lblHero" Content="EROU"/>
-                            <ComboBox x:Name="cmbHero"/>
-                            <TextBlock x:Name="errHero" Style="{StaticResource ErrStyle}" Text="Selectati un erou"/>
-                        </StackPanel>
+                    <Button x:Name="btnMeniuCautare"
+                            Content="Cautare Jucatori"
+                            Tag="Q"
+                            Style="{StaticResource SidebarBtn}"
+                            Click="btnMeniuCautare_Click"/>
 
-                        <StackPanel Grid.Column="4">
-                            <Label Content="RANK"/>
-                            <ComboBox x:Name="cmbRank"/>
-                            <TextBlock x:Name="errRank" Style="{StaticResource ErrStyle}" Text="Selectati un rank"/>
-                        </StackPanel>
-                    </Grid>
-                </GroupBox>
+                    <Button x:Name="btnMeniuEchipe"
+                            Content="Echipe"
+                            Tag="#"
+                            Style="{StaticResource SidebarBtn}"
+                            Click="btnMeniuEchipe_Click"/>
+                </StackPanel>
 
-                <GroupBox Header="Rol jucator">
+                <Border DockPanel.Dock="Bottom" Margin="12,0,12,16"
+                        Background="#F8FAFC" CornerRadius="8"
+                        BorderBrush="#E5E7EB" BorderThickness="1"
+                        Padding="14,12">
                     <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-                            <CheckBox x:Name="chkDps" Content="DPS" Checked="chkRole_Changed" Unchecked="chkRole_Changed"/>
-                            <CheckBox x:Name="chkTank" Content="Tank" Checked="chkRole_Changed" Unchecked="chkRole_Changed"/>
-                            <CheckBox x:Name="chkHealer" Content="Healer" Checked="chkRole_Changed" Unchecked="chkRole_Changed"/>
-                        </StackPanel>
-                        <TextBlock x:Name="errRole" Style="{StaticResource ErrStyle}" Text="Selectati cel putin un rol"/>
+                        <TextBlock Text="TOTAL JUCATORI"
+                                   FontSize="10" FontWeight="Bold"
+                                   Foreground="#9CA3AF" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="txtNrJucatori"
+                                   Text="0"
+                                   FontSize="28" FontWeight="Bold"
+                                   Foreground="#1D4ED8"/>
                     </StackPanel>
-                </GroupBox>
+                </Border>
 
-                <GroupBox Header="Statistici">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="16"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="16"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="16"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Grid.Column="0">
-                            <Label x:Name="lblGames" Content="MECIURI JUCATE"/>
-                            <TextBox x:Name="txtGamesPlayed"/>
-                            <TextBlock x:Name="errGamesPlayed" Style="{StaticResource ErrStyle}" Text="Minim 1 meci"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="2">
-                            <Label x:Name="lblDamage" Content="DAMAGE DEALT"/>
-                            <TextBox x:Name="txtDamageDealt"/>
-                            <TextBlock x:Name="errDamageDealt" Style="{StaticResource ErrStyle}" Text="Valoare invalida (min 0)"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="4">
-                            <Label x:Name="lblHealing" Content="HEALING DONE"/>
-                            <TextBox x:Name="txtHealingDone"/>
-                            <TextBlock x:Name="errHealingDone" Style="{StaticResource ErrStyle}" Text="Valoare invalida (min 0)"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="6">
-                            <Label x:Name="lblDamageTaken" Content="DAMAGE TAKEN"/>
-                            <TextBox x:Name="txtDamageTaken"/>
-                            <TextBlock x:Name="errDamageTaken" Style="{StaticResource ErrStyle}" Text="Valoare invalida (min 0)"/>
-                        </StackPanel>
-                    </Grid>
-                </GroupBox>
-
-                <GroupBox Header="Lista jucatori adaugati">
-                    <StackPanel>
-                        <DataGrid x:Name="dgJucatori"
-                                  AutoGenerateColumns="False"
-                                  IsReadOnly="True"
-                                  Height="160"
-                                  GridLinesVisibility="Horizontal"
-                                  HeadersVisibility="Column"
-                                  BorderThickness="0"
-                                  FontSize="12"
-                                  RowBackground="White"
-                                  AlternatingRowBackground="#F8F8FC"
-                                  SelectionMode="Single"
-                                  SelectionChanged="dgJucatori_SelectionChanged">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID"         Binding="{Binding Id}"           Width="45"/>
-                                <DataGridTextColumn Header="Nickname"   Binding="{Binding Nickname}"     Width="120"/>
-                                <DataGridTextColumn Header="Erou"       Binding="{Binding Hero}"         Width="130"/>
-                                <DataGridTextColumn Header="Rol"        Binding="{Binding Role}"         Width="110"/>
-                                <DataGridTextColumn Header="Rank"       Binding="{Binding Rank}"         Width="100"/>
-                                <DataGridTextColumn Header="Meciuri"    Binding="{Binding GamesPlayed}"  Width="70"/>
-                                <DataGridTextColumn Header="DMG Dat"    Binding="{Binding DamageDealt}"  Width="80"/>
-                                <DataGridTextColumn Header="Healing"    Binding="{Binding HealingDone}"  Width="70"/>
-                                <DataGridTextColumn Header="DMG Primit" Binding="{Binding DamageTaken}"  Width="*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
-                            <Button x:Name="btnModifica" Content="Modifica selectat" Width="160"
-                                    Background="#E07B00" Padding="12,0"
-                                    Click="btnModifica_Click" IsEnabled="False"/>
-                        </StackPanel>
-                    </StackPanel>
-                </GroupBox>
-
-            </StackPanel>
-        </ScrollViewer>
-
-        <Border Grid.Row="2" x:Name="borderMesaj" CornerRadius="5" Padding="12,7"
-                Margin="0,6,0,0" Visibility="Collapsed">
-            <TextBlock x:Name="txtMesaj" FontSize="13" FontWeight="SemiBold"/>
+            </DockPanel>
         </Border>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button x:Name="btnReseteaza" Content="Reseteaza" Width="110"
-                    Background="#7777AA" Padding="12,0"
-                    Click="btnReseteaza_Click" Margin="0,0,10,0"/>
-            <Button x:Name="btnAdauga" Content="Adauga jucator" Width="160"
-                    Background="#3B3B8E" Padding="12,0"
-                    Click="btnAdauga_Click"/>
-        </StackPanel>
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="White"
+                    BorderBrush="#E5E7EB" BorderThickness="0,0,0,1"
+                    Padding="28,16,28,16">
+                <StackPanel>
+                    <TextBlock x:Name="txtPaginaTitlu"
+                               Text="Adaugare Jucator Nou"
+                               FontSize="20" FontWeight="Bold" Foreground="#111827"/>
+                    <TextBlock x:Name="txtPaginaSubtitlu"
+                               Text="Completati campurile de mai jos pentru a inregistra un jucator nou"
+                               FontSize="12" Foreground="#6B7280" Margin="0,4,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="28,22,28,22">
+                <StackPanel>
+
+                    
+                    <StackPanel x:Name="PanouAdaugare" Visibility="Visible">
+
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="Informatii de baza"
+                                           FontSize="13" FontWeight="Bold"
+                                           Foreground="#374151" Margin="0,0,0,14"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <Label x:Name="lblNickname" Content="NICKNAME"/>
+                                        <TextBox x:Name="txtNickname"/>
+                                        <TextBlock x:Name="errNickname" Style="{StaticResource ErrStyle}" Text="Nickname: 3-20 caractere"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <Label x:Name="lblHero" Content="EROU"/>
+                                        <ComboBox x:Name="cmbHero"/>
+                                        <TextBlock x:Name="errHero" Style="{StaticResource ErrStyle}" Text="Selectati un erou"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4">
+                                        <Label Content="RANK"/>
+                                        <ComboBox x:Name="cmbRank"/>
+                                        <TextBlock x:Name="errRank" Style="{StaticResource ErrStyle}" Text="Selectati un rank"/>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="Rol jucator"
+                                           FontSize="13" FontWeight="Bold"
+                                           Foreground="#374151" Margin="0,0,0,12"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="chkDps" Content="DPS"
+                                              Checked="chkRole_Changed" Unchecked="chkRole_Changed"/>
+                                    <CheckBox x:Name="chkTank" Content="Tank"
+                                              Checked="chkRole_Changed" Unchecked="chkRole_Changed"/>
+                                    <CheckBox x:Name="chkHealer" Content="Healer"
+                                              Checked="chkRole_Changed" Unchecked="chkRole_Changed"/>
+                                </StackPanel>
+                                <TextBlock x:Name="errRole" Style="{StaticResource ErrStyle}" Text="Selectati cel putin un rol"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="Statistici"
+                                           FontSize="13" FontWeight="Bold"
+                                           Foreground="#374151" Margin="0,0,0,14"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <Label x:Name="lblGames" Content="MECIURI JUCATE"/>
+                                        <TextBox x:Name="txtGamesPlayed"/>
+                                        <TextBlock x:Name="errGamesPlayed" Style="{StaticResource ErrStyle}" Text="Minim 1 meci"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <Label x:Name="lblDamage" Content="DAMAGE DEALT"/>
+                                        <TextBox x:Name="txtDamageDealt"/>
+                                        <TextBlock x:Name="errDamageDealt" Style="{StaticResource ErrStyle}" Text="Min 0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4">
+                                        <Label x:Name="lblHealing" Content="HEALING DONE"/>
+                                        <TextBox x:Name="txtHealingDone"/>
+                                        <TextBlock x:Name="errHealingDone" Style="{StaticResource ErrStyle}" Text="Min 0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="6">
+                                        <Label x:Name="lblDamageTaken" Content="DAMAGE TAKEN"/>
+                                        <TextBox x:Name="txtDamageTaken"/>
+                                        <TextBlock x:Name="errDamageTaken" Style="{StaticResource ErrStyle}" Text="Min 0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="borderMesajAdaugare" CornerRadius="8" Padding="14,10"
+                                Margin="0,0,0,14" Visibility="Collapsed">
+                            <TextBlock x:Name="txtMesajAdaugare" FontSize="13" FontWeight="SemiBold"/>
+                        </Border>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Reseteaza"
+                                    Style="{StaticResource BtnSecundar}"
+                                    Width="120" Margin="0,0,10,0"
+                                    Click="btnReseteazaAdaugare_Click"/>
+                            <Button Content="Adauga Jucator"
+                                    Style="{StaticResource BtnPrincipal}"
+                                    Background="#1D4ED8" Width="180"
+                                    Click="btnAdauga_Click"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    
+                    <StackPanel x:Name="PanouModificare" Visibility="Collapsed">
+
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="Selectati jucatorul pe care doriti sa il modificati"
+                                           FontSize="13" FontWeight="Bold"
+                                           Foreground="#374151" Margin="0,0,0,12"/>
+                                <DataGrid x:Name="dgJucatori"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          Height="170"
+                                          GridLinesVisibility="Horizontal"
+                                          HeadersVisibility="Column"
+                                          BorderThickness="1" BorderBrush="#E5E7EB"
+                                          FontSize="12"
+                                          RowBackground="White"
+                                          AlternatingRowBackground="#F9FAFB"
+                                          SelectionMode="Single"
+                                          SelectionChanged="dgJucatoriSelectionChanged">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID"         Binding="{Binding Id}"           Width="45"/>
+                                        <DataGridTextColumn Header="Nickname"   Binding="{Binding Nickname}"     Width="120"/>
+                                        <DataGridTextColumn Header="Erou"       Binding="{Binding Hero}"         Width="130"/>
+                                        <DataGridTextColumn Header="Rol"        Binding="{Binding Role}"         Width="100"/>
+                                        <DataGridTextColumn Header="Rank"       Binding="{Binding Rank}"         Width="90"/>
+                                        <DataGridTextColumn Header="Meciuri"    Binding="{Binding GamesPlayed}"  Width="65"/>
+                                        <DataGridTextColumn Header="DMG Dat"    Binding="{Binding DamageDealt}"  Width="75"/>
+                                        <DataGridTextColumn Header="Healing"    Binding="{Binding HealingDone}"  Width="65"/>
+                                        <DataGridTextColumn Header="DMG Primit" Binding="{Binding DamageTaken}"  Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+
+                                <Border x:Name="bannerSelectare" Background="#FEFCE8"
+                                        CornerRadius="6" Padding="12,9" Margin="0,0,0,16"
+                                        BorderBrush="#FDE68A" BorderThickness="1">
+                                    <TextBlock Text="Selectati un jucator din lista de mai sus pentru a-i edita datele"
+                                               FontSize="12" Foreground="#92400E" FontWeight="SemiBold"/>
+                                </Border>
+
+                                <TextBlock Text="Date jucator"
+                                           FontSize="13" FontWeight="Bold"
+                                           Foreground="#374151" Margin="0,0,0,14"/>
+
+                                <Grid Margin="0,0,0,14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <Label x:Name="lblModifNickname" Content="NICKNAME"/>
+                                        <TextBox x:Name="txtModifNickname" IsEnabled="False"
+                                                 Text="{Binding JucatorCurent.Nickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock x:Name="errModifNickname" Style="{StaticResource ErrStyle}" Text="Nickname: 3-20 caractere"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <Label x:Name="lblModifHero" Content="EROU"/>
+                                        <ComboBox x:Name="cmbModifHero" IsEnabled="False"/>
+                                        <TextBlock x:Name="errModifHero" Style="{StaticResource ErrStyle}" Text="Selectati un erou"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4">
+                                        <Label Content="RANK"/>
+                                        <ComboBox x:Name="cmbModifRank" IsEnabled="False"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <StackPanel Margin="0,0,0,14">
+                                    <Label Content="ROL"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                        <CheckBox x:Name="chkModifDps" Content="DPS" IsEnabled="False"
+                                                  Checked="chkModifRole_Changed" Unchecked="chkModifRole_Changed"/>
+                                        <CheckBox x:Name="chkModifTank" Content="Tank" IsEnabled="False"
+                                                  Checked="chkModifRole_Changed" Unchecked="chkModifRole_Changed"/>
+                                        <CheckBox x:Name="chkModifHealer" Content="Healer" IsEnabled="False"
+                                                  Checked="chkModifRole_Changed" Unchecked="chkModifRole_Changed"/>
+                                    </StackPanel>
+                                    <TextBlock x:Name="errModifRole" Style="{StaticResource ErrStyle}" Text="Selectati cel putin un rol"/>
+                                </StackPanel>
+
+                                <Grid Margin="0,0,0,16">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <Label x:Name="lblModifGames" Content="MECIURI JUCATE"/>
+                                        <TextBox x:Name="txtModifGamesPlayed" IsEnabled="False"
+                                                 Text="{Binding JucatorCurent.GamesPlayed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock x:Name="errModifGames" Style="{StaticResource ErrStyle}" Text="Minim 1 meci"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <Label x:Name="lblModifDamage" Content="DAMAGE DEALT"/>
+                                        <TextBox x:Name="txtModifDamageDealt" IsEnabled="False"/>
+                                        <TextBlock x:Name="errModifDamage" Style="{StaticResource ErrStyle}" Text="Min 0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4">
+                                        <Label x:Name="lblModifHealing" Content="HEALING DONE"/>
+                                        <TextBox x:Name="txtModifHealingDone" IsEnabled="False"/>
+                                        <TextBlock x:Name="errModifHealing" Style="{StaticResource ErrStyle}" Text="Min 0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="6">
+                                        <Label x:Name="lblModifDamageTaken" Content="DAMAGE TAKEN"/>
+                                        <TextBox x:Name="txtModifDamageTaken" IsEnabled="False"/>
+                                        <TextBlock x:Name="errModifDamageTaken" Style="{StaticResource ErrStyle}" Text="Min 0"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Border x:Name="borderMesajModif" CornerRadius="8" Padding="14,10"
+                                        Margin="0,0,0,14" Visibility="Collapsed">
+                                    <TextBlock x:Name="txtMesajModif" FontSize="13" FontWeight="SemiBold"/>
+                                </Border>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="Anuleaza"
+                                            Style="{StaticResource BtnSecundar}"
+                                            Width="110" Margin="0,0,10,0"
+                                            Click="btnAnuleazaModif_Click"/>
+                                    <Button x:Name="btnSalveazaModif"
+                                            Content="Salveaza Modificarile"
+                                            Style="{StaticResource BtnPrincipal}"
+                                            Background="#059669" Width="200"
+                                            IsEnabled="False"
+                                            Click="btnSalveazaModif_Click"/>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+
+                    
+                    <StackPanel x:Name="PanouCautare" Visibility="Collapsed">
+
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="Criterii de cautare"
+                                           FontSize="13" FontWeight="Bold"
+                                           Foreground="#374151" Margin="0,0,0,16"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="0" Background="#F0F9FF"
+                                            CornerRadius="8" BorderBrush="#BAE6FD"
+                                            BorderThickness="1" Padding="16,14">
+                                        <StackPanel>
+                                            <TextBlock Text="Cauta dupa Nickname"
+                                                       FontSize="13" FontWeight="Bold"
+                                                       Foreground="#0369A1" Margin="0,0,0,12"/>
+                                            <Label Content="NICKNAME JUCATOR"/>
+                                            <TextBox x:Name="txtCautareNickname" Margin="0,0,0,12"/>
+                                            <Button Content="Cauta dupa Nickname"
+                                                    Style="{StaticResource BtnPrincipal}"
+                                                    Background="#0284C7"
+                                                    Click="btnCautaNickname_Click"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Column="2" Background="#F0FDF4"
+                                            CornerRadius="8" BorderBrush="#BBF7D0"
+                                            BorderThickness="1" Padding="16,14">
+                                        <StackPanel>
+                                            <TextBlock Text="Cauta dupa Erou"
+                                                       FontSize="13" FontWeight="Bold"
+                                                       Foreground="#15803D" Margin="0,0,0,12"/>
+                                            <Label Content="SELECTATI EROUL"/>
+                                            <ComboBox x:Name="cmbCautareHero" Margin="0,0,0,12"/>
+                                            <Button Content="Cauta dupa Erou"
+                                                    Style="{StaticResource BtnPrincipal}"
+                                                    Background="#16A34A"
+                                                    Click="btnCautaHero_Click"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+                                <Grid Margin="0,0,0,12">
+                                    <TextBlock Text="Rezultate cautare"
+                                               FontSize="13" FontWeight="Bold"
+                                               Foreground="#374151"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"/>
+                                    <Button Content="Arata toti jucatorii"
+                                            Style="{StaticResource BtnSecundar}"
+                                            HorizontalAlignment="Right"
+                                            Width="170" Height="30"
+                                            Click="btnResetCautare_Click"/>
+                                </Grid>
+
+                                <Border x:Name="borderMesajCautare" CornerRadius="8" Padding="14,10"
+                                        Margin="0,0,0,10" Visibility="Collapsed">
+                                    <TextBlock x:Name="txtMesajCautare" FontSize="13" FontWeight="SemiBold"/>
+                                </Border>
+
+                                <DataGrid x:Name="dgCautareRezultate"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          Height="200"
+                                          GridLinesVisibility="Horizontal"
+                                          HeadersVisibility="Column"
+                                          BorderThickness="1" BorderBrush="#E5E7EB"
+                                          FontSize="12"
+                                          RowBackground="White"
+                                          AlternatingRowBackground="#F9FAFB"
+                                          SelectionMode="Single">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID"         Binding="{Binding Id}"           Width="45"/>
+                                        <DataGridTextColumn Header="Nickname"   Binding="{Binding Nickname}"     Width="120"/>
+                                        <DataGridTextColumn Header="Erou"       Binding="{Binding Hero}"         Width="130"/>
+                                        <DataGridTextColumn Header="Rol"        Binding="{Binding Role}"         Width="100"/>
+                                        <DataGridTextColumn Header="Rank"       Binding="{Binding Rank}"         Width="90"/>
+                                        <DataGridTextColumn Header="Meciuri"    Binding="{Binding GamesPlayed}"  Width="65"/>
+                                        <DataGridTextColumn Header="DMG Dat"    Binding="{Binding DamageDealt}"  Width="75"/>
+                                        <DataGridTextColumn Header="Healing"    Binding="{Binding HealingDone}"  Width="65"/>
+                                        <DataGridTextColumn Header="DMG Primit" Binding="{Binding DamageTaken}"  Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+
+                    
+                    <StackPanel x:Name="PanouEchipe" Visibility="Collapsed">
+
+                        
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="Creare Echipa Noua"
+                                           FontSize="13" FontWeight="Bold"
+                                           Foreground="#374151" Margin="0,0,0,14"/>
+
+                                <Grid Margin="0,0,0,14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <Label x:Name="lblDenumireEchipa" Content="DENUMIRE ECHIPA"/>
+                                        <TextBox x:Name="txtDenumireEchipa"/>
+                                        <TextBlock x:Name="errDenumireEchipa" Style="{StaticResource ErrStyle}" Text="Denumirea: 2-30 caractere"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2">
+                                        <Label Content="ADAUGA JUCATOR DIN LISTA"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ComboBox x:Name="cmbJucatoriDisponibili" Grid.Column="0"/>
+                                            <Button Content="Adauga"
+                                                    Grid.Column="2"
+                                                    Style="{StaticResource BtnPrincipal}"
+                                                    Background="#7C3AED" Width="90"
+                                                    Click="btnAdaugaJucatorInEchipa_Click"/>
+                                        </Grid>
+                                        <TextBlock x:Name="errJucatorEchipa" Style="{StaticResource ErrStyle}" Text="Selectati un jucator"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                
+                                <TextBlock Text="Jucatori in echipa (max 6)"
+                                           FontSize="12" FontWeight="SemiBold"
+                                           Foreground="#374151" Margin="0,0,0,8"/>
+                                <DataGrid x:Name="dgJucatoriEchipaNoua"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          Height="160"
+                                          GridLinesVisibility="Horizontal"
+                                          HeadersVisibility="Column"
+                                          BorderThickness="1" BorderBrush="#E5E7EB"
+                                          FontSize="12"
+                                          RowBackground="White"
+                                          AlternatingRowBackground="#F9FAFB"
+                                          SelectionMode="Single">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID"       Binding="{Binding Id}"       Width="45"/>
+                                        <DataGridTextColumn Header="Nickname" Binding="{Binding Nickname}" Width="140"/>
+                                        <DataGridTextColumn Header="Erou"     Binding="{Binding Hero}"     Width="140"/>
+                                        <DataGridTextColumn Header="Rol"      Binding="{Binding Role}"     Width="100"/>
+                                        <DataGridTextColumn Header="Rank"     Binding="{Binding Rank}"     Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <TextBlock x:Name="txtNrJucatoriEchipa"
+                                           Text="0 / 6 jucatori"
+                                           FontSize="11" Foreground="#6B7280"
+                                           Margin="0,6,0,0" HorizontalAlignment="Right"/>
+
+                                <Border x:Name="borderMesajEchipa" CornerRadius="8" Padding="14,10"
+                                        Margin="0,10,0,0" Visibility="Collapsed">
+                                    <TextBlock x:Name="txtMesajEchipa" FontSize="13" FontWeight="SemiBold"/>
+                                </Border>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+                                    <Button Content="Sterge Selectat"
+                                            Style="{StaticResource BtnSecundar}"
+                                            Width="150" Margin="0,0,10,0"
+                                            Click="btnStergeJucatorDinEchipa_Click"/>
+                                    <Button Content="Reseteaza"
+                                            Style="{StaticResource BtnSecundar}"
+                                            Width="110" Margin="0,0,10,0"
+                                            Click="btnReseteazaEchipa_Click"/>
+                                    <Button Content="Creazi Echipa"
+                                            Style="{StaticResource BtnPrincipal}"
+                                            Background="#7C3AED" Width="160"
+                                            Click="btnCreaziEchipa_Click"/>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </Border>
+
+                        
+                        <Border Background="White" CornerRadius="10"
+                                BorderBrush="#E5E7EB" BorderThickness="1"
+                                Padding="22,18" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="Echipe Salvate"
+                                           FontSize="13" FontWeight="Bold"
+                                           Foreground="#374151" Margin="0,0,0,12"/>
+
+                                <DataGrid x:Name="dgEchipeSalvate"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          Height="180"
+                                          GridLinesVisibility="Horizontal"
+                                          HeadersVisibility="Column"
+                                          BorderThickness="1" BorderBrush="#E5E7EB"
+                                          FontSize="12"
+                                          RowBackground="White"
+                                          AlternatingRowBackground="#F9FAFB"
+                                          SelectionMode="Single"
+                                          SelectionChanged="dgEchipeSalvate_SelectionChanged">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID"         Binding="{Binding Id}"           Width="45"/>
+                                        <DataGridTextColumn Header="Denumire"   Binding="{Binding Denumire}"     Width="180"/>
+                                        <DataGridTextColumn Header="Nr Jucatori" Binding="{Binding NrJucatori}"  Width="100"/>
+                                        <DataGridTextColumn Header="Jucatori"   Binding="{Binding ListaJucatori}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
 
     </Grid>
 </Window>

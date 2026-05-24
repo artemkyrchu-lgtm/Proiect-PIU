@@ -9,10 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GestionareaEchipei\GestionareaEchipei.csproj" />
     <ProjectReference Include="..\GestionareaEnum\GestionareaEnum.csproj" />
     <ProjectReference Include="..\GestionareaJucatorului\GestionareaJucatorului.csproj" />
     <ProjectReference Include="..\Jucator\Jucator.csproj" />
     <ProjectReference Include="..\Manager Statistica Jucatori\Manager Statistică Jucători.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Jucatori.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

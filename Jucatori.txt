@@ -1,0 +1,7 @@
+1;maks;Magik;Dps;Diamond;111;121;111;12111
+2;artem;Deadpool;Tank;Diamond;111;11;11;11
+3;daniel;Black_Cat;Dps;Bronze;1;111;1111;1111
+4;max;Black_Cat;Dps;Bronze;1;1;1;1
+5;blox;Adam_Warlock;Healer;Bronze;1;1;1;1
+6;tort;Luna_Snow;Healer;Bronze;1;1;1;1
+7;ariv;Mantis;Healer;Bronze;1;1;1;1
